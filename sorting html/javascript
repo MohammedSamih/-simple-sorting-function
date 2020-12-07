@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://listjs.com/no-cdn/list.js"></script>
+<html>
+    <head>
+        <title>Add Edit Remove HTML Table Row</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style>
+            
+            .container{overflow: hidden}
+            .tab{float: left;}
+            .tab-2{margin-left: 50px}
+            .tab-2 input{display: block;margin-bottom: 10px}
+            tr{transition:all .25s ease-in-out}
+            tr:hover{background-color:#EEE;cursor: pointer}
+            
+        </style>
+        
+    </head>
+    <body>
+	 <div class="tab tab-2">
+                ID :<input type="number" name="uid" id="uid" value="4"  readonly>
+                 Name :<input type="text" name="uname" id="uname">
+                occuption :<input type="text" name="uocc" id="uocc">
+                
+                <button onclick="addHtmlTableRow();">Add</button>
+              
+            </div><br>
+        
+		
+		<br><br><br><br><br><br><br> <br><br><br><label for="sort">Choose a sorting method:</label>
+	
+  <select id="sort" name="sorting" onChange="OnSelectedIndexChange()">
+    <option value="1" >User ID</option>
+    <option value="Uname" >User Name</option>
+    <option value="Uocc" >User Occuption</option>
+    
+  </select><br>
+		
+		
+        <br><br><div class="container">
+            <div class="tab tab-1">
+                <table id="table" border="1">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Occuption</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Samih</td>
+                        <td>Student</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Tom</td>
+                        <td>Excutive officer</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Yan</td>
+                        <td>Software Teacher</td>
+                    </tr>
+                </table>
+            </div>
+           
+        </div>
+        
+        <script>
+            
+            var rIndex,
+                table = document.getElementById("table");
+            
+            // check the empty input
+            function checkEmptyInput()
+            {
+                var isEmpty = false,
+                    uid = table.rows.length+1,
+                    uname = document.getElementById("uname").value,
+                    uocc = document.getElementById("uocc").value;
+            
+                if(uid === ""){
+                    alert("ID Connot Be Empty");
+                    isEmpty = true;
+                }
+                else if(uname === ""){
+                    alert(" Name Connot Be Empty");
+                    isEmpty = true;
+                }
+                else if(uocc === ""){
+                    alert("Occuption Connot Be Empty");
+                    isEmpty = true;
+                }
+                return isEmpty;
+            }
+            
+            // add Row
+            function addHtmlTableRow()
+            {
+                // get the table by id
+                // create a new row and cells
+                // get value from input text
+                // set the values into row cell's
+                if(!checkEmptyInput()){
+                var newRow = table.insertRow(table.length),
+                    cell1 = newRow.insertCell(0),
+                    cell2 = newRow.insertCell(1),
+                    cell3 = newRow.insertCell(2),
+					
+                    uid = table.rows.length-1,
+                    uname = document.getElementById("uname").value,
+                    uocc = document.getElementById("uocc").value;
+            
+                cell1.innerHTML = uid;
+                cell2.innerHTML = uname;
+                cell3.innerHTML = uocc;
+                // call the function to set the event to the new row
+                selectedRowToInput();
+            }
+            }
+            
+            // display selected row data into input text
+            function selectedRowToInput()
+            {
+                
+                for(var i = 1; i < table.rows.length; i++)
+                {
+                    table.rows[i].onclick = function()
+                    {
+                      // get the seected row index
+                      rIndex = this.rowIndex;
+                      document.getElementById("uid").value = this.cells[0].innerHTML;
+                      document.getElementById("uname").value = this.cells[1].innerHTML;
+                      document.getElementById("uocc").value = this.cells[2].innerHTML;
+                    };
+                }
+            }
+			
+			
+	function OnSelectedIndexChange()
+{
+     if (document.getElementById('sort').value == "1"){
+	 
+
+		uid.sort(function(a, b){return a - b});
+		document.getElementById("sort").innerHTML = uid;
+}
+
+     else if (document.getElementById('sort').value == "uname"){
+	 
+	 uname.sort();
+	 document.getElementById("sort").innerHTML = uname;
+
+	 
+	
+}
+
+
+     else if (document.getElementById('sort').value == "uocc"){
+	 
+	 uocc.sort();
+	 document.getElementById("uocc").innerHTML = uocc;
+
+	 
+	
+}
+}     
+        </script>
+        
+    </body>
+</html>
